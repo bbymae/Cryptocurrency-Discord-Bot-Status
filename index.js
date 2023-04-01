@@ -1,13 +1,13 @@
 require('dotenv').config() // Load .env file
-const axios = require('axios')
-const Discord = require('discord.js')
-const client = new Discord.Client()
+import { get } from 'axios'
+import { Client } from 'discord.js'
+const client = new Client()
 
 function getPrices() {
 
 
 	// API for price data.
-	axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${process.env.PREFERRED_CURRENCY}&ids=${process.env.COIN_ID}`).then(res => {
+	get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${process.env.PREFERRED_CURRENCY}&ids=${process.env.COIN_ID}`).then(res => {
 		// If we got a valid response
 		if(res.data && res.data[0].current_price && res.data[0].price_change_percentage_24h) {
 			let currentPrice = res.data[0].current_price || 0 // Default to zero
@@ -41,4 +41,5 @@ client.on('ready', () => {
 })
 
 // Login to Discord
+https://discord.com/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1&applications.commands
 client.login(process.env.DISCORD_TOKEN)
